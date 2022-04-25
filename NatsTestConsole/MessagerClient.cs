@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Text;
+using System.Collections.Generic;
 
 namespace NatsTestConsole
 {
@@ -23,15 +24,20 @@ namespace NatsTestConsole
                 using(_connection = CreateConnection())
                 {
                     Console.Clear();
-                    Console.WriteLine("You may send a message at any time:");
+                    Console.WriteLine("You may send a message at any time, or Press '1' to retrieve your messages:");
 
-                    IncomingMessages();
+                    //IncomingMessages();
 
                     string input = Console.ReadLine();
 
                     if(input != null)
                     {
-                        var result = Send(input);
+                        if (input == "1")
+                            GetMessages();
+                        else
+                        {
+                            var task = Send(input);
+                        }
                     }
 
                     //EventHandler<MsgHandlerEventArgs> h = (sender, args) =>
@@ -41,7 +47,7 @@ namespace NatsTestConsole
                 }
             }
         }
-        
+
         /// <summary>
         /// Monitors and Displays incoming messages on subscription
         /// </summary>
@@ -78,6 +84,40 @@ namespace NatsTestConsole
         }
 
         /// <summary>
+        /// Sends Get Request to API for Messages since started
+        /// </summary>
+        private async static void GetMessages()
+        {
+            using (var client = new HttpClient())
+            {
+                //Passing service base url
+                client.BaseAddress = new Uri(url);
+
+                //Define request data format
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Send request to API REST service GetMessages using HttpClient
+                var response = await client.GetAsync(url);
+
+                //Check to ensure success
+                if (response.IsSuccessStatusCode)
+                {
+                    //Storing response results
+                    var messageResponse = response.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing results
+                    List<Message> messages = JsonSerializer.Deserialize<List<Message>>(messageResponse);
+
+                    foreach(var m in messages)
+                    {
+                        Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} { m.Reply} + {m.Data}");
+                    }
+
+                }
+            }
+        }
+
+        /// <summary>
         /// Sends POST request to API with string message
         /// </summary>
         /// <param name="input"></param>
@@ -86,13 +126,16 @@ namespace NatsTestConsole
         {
             using (var client = new HttpClient())
             {
+                //Serializing message text to JSON
                 var json = JsonSerializer.Serialize(input);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
 
+                //Building request with content headers
                 var request = new HttpRequestMessage(HttpMethod.Post, url);
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 request.Content = data;
 
+                //Building HttpClient
                 client.BaseAddress = new Uri(url);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));

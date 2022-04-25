@@ -12,7 +12,7 @@ namespace NatsTestAPI.Controllers
     [ApiController]
     public class NatsController : Controller
     {
-        private static IConnection _connect;
+        private static IConnection _connect = EnsureConnection();
         string defaultSubscription = "nats.demo.pubsub";
 
         /// <summary>
@@ -21,11 +21,11 @@ namespace NatsTestAPI.Controllers
         /// <param name="message"></param>
         /// <returns></returns>
         [HttpPost]
-        //[Route("/post")]
         public IActionResult Post([FromBody] string message)
         {
-            using(_connect = EnsureConnection())
-            {
+            //using(_connect = EnsureConnection())
+            //{
+            //}
                 try
                 {
                     _connect.Publish(defaultSubscription, Encoding.UTF8.GetBytes(message));
@@ -35,6 +35,31 @@ namespace NatsTestAPI.Controllers
                 {
                     return BadRequest(ex.Message);
                 }
+        }
+
+        /// <summary>
+        /// Get Request to retrieve messages from the Subscription channel
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetMessages()
+        {
+            try 
+            {
+                List<string> newMessages = new List<string>();
+                EventHandler<MsgHandlerEventArgs> msg = (sender, args) =>
+                {
+                    string data = Encoding.UTF8.GetString(args.Message.Data);
+                    newMessages.Add(data);
+                };
+
+                var data = Json(newMessages);
+                return (Ok(data));
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
