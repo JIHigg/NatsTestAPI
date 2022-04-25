@@ -78,7 +78,7 @@ namespace NatsTestConsole
             ConnectionFactory factory = new ConnectionFactory();
 
             Options options = ConnectionFactory.GetDefaultOptions();
-            options.Url = "nats:localhost:4222";
+            options.Url = "nats://localhost:4222";
 
             return factory.CreateConnection(options);
         }
