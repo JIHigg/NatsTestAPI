@@ -14,5 +14,7 @@ A client app that launches a console window and an API running through IIS Expre
  
 -Was able to implement an event handler for new messages without the API, however using the API GET method for NATS seems to throw more exceptions or miss messages. -Unimplemented solution: currently elbow deep in NATS documentation trying to figure this out.
 
+Any future updates/fixes will be published on my github at https://github.com/JIHigg/NatsTestAPI
+
 # Parting thoughts
 This was an exciting challenge, and I thank you for giving me the opportunity to write an API for something new. I was unfamiliar with NATS before this, and it was fun to try it out and learn something. I have done my best in four hours, and I greatly enjoyed the chance to use my skills in an area I have not done before. I would love to be on your team and to get the opportunity to learn more from you all. If we make a good fit, first After Work pizza is on me (with or without pineapple, I won't judge!).
