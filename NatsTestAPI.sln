@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32407.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsTestAPI", "NatsTestAPI\NatsTestAPI.csproj", "{F5E4E62B-5AC4-48B0-BE3A-0DD2EBB630F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NatsTestAPI", "NatsTestAPI\NatsTestAPI.csproj", "{F5E4E62B-5AC4-48B0-BE3A-0DD2EBB630F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsTestConsole", "NatsTestConsole\NatsTestConsole.csproj", "{96EB0839-8889-47D6-8138-E71712390406}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NatsTestConsole", "NatsTestConsole\NatsTestConsole.csproj", "{96EB0839-8889-47D6-8138-E71712390406}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53E59BB3-4480-49DD-B6EF-479D6E51BD02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsTestCore", "NatsTestCore\NatsTestCore.csproj", "{3A53959C-7462-4839-AF46-E5E914230073}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{96EB0839-8889-47D6-8138-E71712390406}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96EB0839-8889-47D6-8138-E71712390406}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96EB0839-8889-47D6-8138-E71712390406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A53959C-7462-4839-AF46-E5E914230073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A53959C-7462-4839-AF46-E5E914230073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A53959C-7462-4839-AF46-E5E914230073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A53959C-7462-4839-AF46-E5E914230073}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
