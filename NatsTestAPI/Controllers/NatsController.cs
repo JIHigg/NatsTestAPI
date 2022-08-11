@@ -1,20 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
+using NatsTestAPI.Services;
+using NatsTestCore.Objects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NATS.Client;
-using System.Text;
 
 namespace NatsTestAPI.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class NatsController : Controller
+    public class NatsController : ControllerBase
     {
-        private static IConnection _connect = EnsureConnection();
-        string defaultSubscription = "nats.demo.pubsub";
+        private ChatService _chatService;
 
+        public NatsController(ChatService chatService)
+        {
+            _chatService = chatService;
+        }
+
+        /// <summary>
+        /// Controller implementation returning IEnumerable of Messages
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("messages")]
+        public IEnumerable<Message> GetMessages()
+        {
+            return _chatService.GetMessages();
+        }
+
+        /// <summary>
+        /// Post message to NATSServer
+        /// </summary>
+        /// <param name="message"></param>
+        [HttpPost("messages")]
+        public void PostMessage([FromBody]Message message)
+        {
+            _chatService.SendMessage(message);
+        }
+
+        //OLD CODE 
+        /*private static IConnection _connect = EnsureConnection();
+        string defaultSubscription = "nats.demo.pubsub";
+        
         /// <summary>
         /// Post request to Publish message to the Subscription channel
         /// </summary>
@@ -63,7 +88,6 @@ namespace NatsTestAPI.Controllers
             }
         }
 
-
         /// <summary>
         /// Creates new IConnection instance with NATS server
         /// </summary>
@@ -76,7 +100,6 @@ namespace NatsTestAPI.Controllers
             ops.Url = "nats://localhost:4222"; //TODO change url to correct server
 
             return factory.CreateConnection(ops); //Sometimes throws 'Timeout' error?
-        }
-
+        }*/
     }
 }
