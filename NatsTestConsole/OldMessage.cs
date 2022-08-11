@@ -1,16 +1,12 @@
 ﻿using NATS.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NatsTestConsole
 {
     /// <summary>
     /// A NATS message including a subject, reply, header, data payload, and subscription information.
     /// </summary>
-    public class Message
+    public class OldMessage
     {
         private string subject;
         private string reply;
@@ -70,7 +66,7 @@ namespace NatsTestConsole
         /// <param name="reply">A reply subject, or <c>null</c>.</param>
         /// <param name="header">Message headers or <c>null</c>.</param>
         /// <param name="data">A byte array containing the message payload.</param>
-        public Message(string subject, string reply, MsgHeader header, byte[] data)
+        public OldMessage(string subject, string reply, MsgHeader header, byte[] data)
         {
             if (string.IsNullOrWhiteSpace(subject))
             {

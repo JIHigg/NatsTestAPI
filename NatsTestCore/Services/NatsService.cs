@@ -1,14 +1,9 @@
-﻿using Microsoft.Extensions.Options;
-using NATS.Client;
+﻿using NATS.Client;
 using NatsTestCore.Events;
 using NatsTestCore.Interfaces;
 using NatsTestCore.Objects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace NatsTestCore.Services
 {

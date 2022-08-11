@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using NatsTestAPI.Services;
+using NatsTestCore.Objects;
+using NatsTestCore.Services;
 
 namespace NatsTestAPI
 {
@@ -21,6 +22,9 @@ namespace NatsTestAPI
         {
 
             services.AddControllers();
+            services.AddSingleton<NatsService>();
+            services.AddSingleton<ChatService>();
+            services.Configure<ChatSettings>(Configuration.GetSection("ChatSettings"));
             
         }
 

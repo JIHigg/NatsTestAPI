@@ -1,5 +1,5 @@
-﻿using System;
-using NATS.Client;
+﻿using NatsTestCore.Objects;
+using System;
 
 namespace NatsTestConsole
 {
@@ -10,7 +10,29 @@ namespace NatsTestConsole
         {
             try
             {
-                MessagerClient.Run();
+                //MessagerClient.Run();
+
+                string username = "";
+                string subject = "";
+                string url = "https://localhost:44310/api/Nats";
+
+                Console.WriteLine("Please Enter a UserName: ");
+                username = Console.ReadLine();
+
+                Console.WriteLine("Please Enter a Subject: ");
+                subject = Console.ReadLine();
+
+                var chatSettings = new ChatSettings
+                {
+                    ChatSubject = subject,
+                    ChatUrl = url
+                };
+
+                using (var chatService = new ConsoleService(chatSettings))
+                {
+                    chatService.StartChat(username);
+                }
+
             }
             catch(Exception ex)
             {

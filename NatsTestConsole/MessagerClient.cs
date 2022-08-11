@@ -106,7 +106,7 @@ namespace NatsTestConsole
                     var messageResponse = response.Content.ReadAsStringAsync().Result;
 
                     //Deserializing results
-                    List<Message> messages = JsonSerializer.Deserialize<List<Message>>(messageResponse);
+                    List<OldMessage> messages = JsonSerializer.Deserialize<List<OldMessage>>(messageResponse);
 
                     foreach(var m in messages)
                     {
